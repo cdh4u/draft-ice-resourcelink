@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC0822 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3261 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3261.xml">
+<!ENTITY RFC3311 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3261.xml">
+<!ENTITY RFC4028 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4028.xml">
+]>
+<?rfc toc="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="yes" ?>
+<?rfc sortrefs="no" ?>
+<?rfc strict="yes" ?>
+<rfc ipr="trust200902" category="std" docName="draft-holmberg-core-ice-link-latest" obsoletes="" updates="" submissionType="IETF" xml:lang="en">
+  <front>
+    <title abbrev="ICE LINK">
+      Push Notification with the Session Initiation Protocol (SIP)
+    </title>
+      <author initials="C.H." surname="Holmberg" fullname="Christer Holmberg">
+      <organization>Ericsson</organization>
+      <address>
+        <postal>
+          <street>Hirsalantie 11</street>
+          <code>02420</code>
+          <city>Jorvas</city>
+          <country>Finland</country>
+        </postal>
+        <email>christer.holmberg@ericsson.com</email>
+      </address>
+    </author>
+  
+    <date year="2019"/>
+    <area>Transport</area>
+    <workgroup>CORE Working Group</workgroup>
+    <keyword>ICE</keyword>
+    <keyword>Candidate</keyword>
+    <keyword>CoAP</keyword>
+    <keyword>IoT</keyword>
+    <keyword>Resource</keyword>
+    <keyword>Directory</keyword>
+    <keyword>Link</keyword>
+    <keyword>NAT</keyword>
+    <abstract>
+      <t>
+        This document describes how the CoRE Resource Directory (RD) can be used to distribute
+        Interactive Connectivity Establishment (ICE) candidates. An endpoint that has generated
+        ICE candidates will register those with an RD, using resource links. Other endpoints
+        can then get the candidates by fetching the resource links from the RD.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction" toc="default">
+      <t>
+      </t>
+      <t>
+      </t>
+      <t>
+      </t> 
+      <figure title="XXX" anchor="fig-sip-pn-arch" align="center"><artwork>
+<![CDATA[
+
+    +--------+           +--------------+       +-----------------+
+    | SIP UA |           | Push Service |       |    SIP Proxy    |
+    +--------+           +--------------+       +-----------------+
+        |                      |                         |
+        |      Subscribe       |                         |
+        |--------------------->|                         |
+        |                      |                         |
+        |    Push Resource ID  |                         |
+        |<---------------------|                         |
+        |                      |                         |        
+        |          SIP REGISTER (Push Resource ID)       |
+        |===============================================>|
+        |                      |                         |
+        |                      |     Push Message        |
+        |                      |   (Push Resource ID)    |
+        |    Push Message      |<------------------------|
+        |  (Push Resource ID)  |                         |
+        |<---------------------|                         |
+        |                      |                         |
+
+        ------- Push Notification API
+
+        ======= SIP 
+
+    REGISTER sip:alice@example.com SIP/2.0
+    Via: SIP/2.0/TCP alicemobile.example.com:5060;branch=z9hG4bKnashds7
+    Max-Forwards: 70
+    To: Alice <sip:alice@example.com>
+    From: Alice <sip:alice@example.com>;tag=456248
+    Call-ID: 843817637684230@998sdasdh09
+    CSeq: 1826 REGISTER
+    Contact: <sip:alice@alicemobile.example.com;
+      pn-type=acme:acme-param;
+      pn-prid="ZTY4ZDJlMzODE1NmUgKi0K">
+    Expires: 7200
+    Content-Length: 0
+
+]]></artwork></figure>
+    </section>
+ 
+    <section title="Conventions">
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in <xref target="RFC2119"></xref>.
+      </t>
+    </section>
+
+    <section title="Candidate Resource Link">
+      <t>
+      </t>
+    </section>
+
+    <section anchor="section.ep" title="CoAP Endpoint Behavior">
+      <t>
+      </t>
+      <section anchor="section.ep.reg" title="Register Candidate Resource Link">
+        <t>
+        </t>
+      </section>
+      <section anchor="section.ep.fetch" title="Fetch Candidate Resource Link">
+        <t>
+        </t>
+      </section>
+    </section>
+
+    <section anchor="section.sec" title="Security considerations">
+      <t>
+      </t>
+    </section>
+    <section anchor="section.iana" title="IANA considerations">
+      <t>
+        This specification defines a new resource type (rt=) link target attribute value
+        for the registry created by <xref target="RFC6690"/>:
+      </t>
+      <section anchor="section.iana.rt.candidate" title="candidate">
+        <figure align="center"><artwork>
+<![CDATA[
+
+  Attribute Value: candidate
+
+  Description:  This resource describes an ICE candidate
+                
+  Reference:  RFC XXXX
+
+]]></artwork></figure>
+      </section>
+    </section>
+  </middle>
+  <back>
+    <references title="Normative references">
+      <?rfc include="reference.RFC.2119"?>
+      <?rfc include="reference.RFC.3261"?>
+      <?rfc include="reference.RFC.6690"?>
+      <?rfc include="reference.RFC.7252"?>
+      <?rfc include="reference.RFC.8445"?>
+      <?rfc include="reference.I-D.ietf-core-resource-directory"?>
+    </references>
+  </back>
+</rfc>
